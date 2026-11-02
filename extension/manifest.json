@@ -1,12 +1,12 @@
 {
   "manifest_version": 3,
-  "name": "知乎轻筛",
-  "version": "0.3.0",
+  "name": "知乎过滤器",
+  "version": "0.3.1",
   "description": "本地隐藏知乎首页推荐中的关键词内容、广告和有明确标记的盐选小说。",
   "permissions": ["storage"],
   "host_permissions": ["https://www.zhihu.com/*"],
   "action": {
-    "default_title": "知乎轻筛 · 过滤设置",
+    "default_title": "知乎过滤器 · 过滤设置",
     "default_popup": "popup/popup.html"
   },
   "content_scripts": [{

@@ -15,6 +15,6 @@
   });
   controller.start().catch(() => {
     controller.stop();
-    console.warn("知乎轻筛启动失败，请刷新页面后重试。");
+    console.warn("知乎过滤器启动失败，请刷新页面后重试。");
   });
 })();

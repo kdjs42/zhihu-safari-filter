@@ -64,7 +64,7 @@ npm test
 npm run package
 ```
 
-输出：`dist/zhihu-filter-0.3.0.zip`。ZIP 根目录直接包含 `manifest.json`。
+输出：`dist/zhihu-filter-0.3.1.zip`。ZIP 根目录直接包含 `manifest.json`。
 
 自动测试覆盖关键词规范化、异步过滤链、超时/取消、存储通知、动态加载、摘要/标题变化、规则删除与关闭、页面路由、无占位隐藏、广告标记、小说与非小说区分、独立开关、节点复用、过期结果、HTML 字面值安全展示及设置面板保存。
 
