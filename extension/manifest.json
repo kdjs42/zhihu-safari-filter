@@ -1,0 +1,30 @@
+{
+  "manifest_version": 3,
+  "name": "知乎轻筛",
+  "version": "0.3.0",
+  "description": "本地隐藏知乎首页推荐中的关键词内容、广告和有明确标记的盐选小说。",
+  "permissions": ["storage"],
+  "host_permissions": ["https://www.zhihu.com/*"],
+  "action": {
+    "default_title": "知乎轻筛 · 过滤设置",
+    "default_popup": "popup/popup.html"
+  },
+  "content_scripts": [{
+    "matches": ["https://www.zhihu.com/*"],
+    "run_at": "document_start",
+    "css": ["content.css"],
+    "js": [
+      "core/settings.js",
+      "core/keyword-filter.js",
+      "core/ad-filter.js",
+      "core/yanxuan-filter.js",
+      "core/filter-engine.js",
+      "platform/settings-store.js",
+      "content/zhihu-adapter.js",
+      "content/renderer.js",
+      "content/feed-refiller.js",
+      "content/controller.js",
+      "content/main.js"
+    ]
+  }]
+}

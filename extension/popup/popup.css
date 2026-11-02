@@ -1,0 +1,35 @@
+:root { color-scheme: light dark; font: 13px/1.5 -apple-system, BlinkMacSystemFont, "PingFang SC", sans-serif; color: #253247; background: #f7f9fc; }
+* { box-sizing: border-box; }
+body { width: 352px; margin: 0; padding: 22px; }
+header { display: flex; gap: 12px; align-items: center; margin-bottom: 24px; }
+.mark { display: grid; place-items: center; width: 42px; height: 42px; background: #e3edff; color: #2161c6; border-radius: 12px; font-size: 23px; font-weight: 650; }
+h1 { margin: 0; font-size: 19px; font-weight: 650; letter-spacing: .02em; }
+header p { margin: 2px 0 0; font-size: 12px; color: #758297; }
+fieldset { margin: 0; padding: 0; border: 0; min-width: 0; }
+label { display: block; font-weight: 550; }
+.toggle { display: flex; justify-content: space-between; align-items: center; padding-bottom: 18px; margin-bottom: 18px; border-bottom: 1px solid #e2e8f0; }
+input[type=checkbox] { width: 18px; height: 18px; accent-color: #2469d6; }
+select, textarea { width: 100%; border: 1px solid #cdd7e5; border-radius: 8px; background: #fff; color: inherit; font: inherit; }
+select { padding: 9px; margin-top: 7px; margin-bottom: 18px; }
+.label-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 7px; }
+#count { font-size: 12px; color: #758297; }
+textarea { resize: vertical; min-height: 140px; padding: 10px 12px; line-height: 1.8; }
+textarea::placeholder { color: #8793a4; }
+.hint { margin: 7px 0 16px; color: #758297; font-size: 11px; }
+button { width: 100%; padding: 10px; border: none; border-radius: 8px; background: #2469d6; color: #fff; font: inherit; font-weight: 600; cursor: pointer; }
+button:hover { background: #1c57b5; }
+button:disabled { opacity: .6; cursor: wait; }
+:focus-visible { outline: 2px solid #2469d6; outline-offset: 2px; }
+#message { min-height: 18px; margin: 10px 0 0; color: #267451; font-size: 12px; }
+#message[data-error=true] { color: #b63838; }
+footer { border-top: 1px solid #e2e8f0; margin-top: 14px; padding-top: 11px; color: #758297; font-size: 11px; }
+footer p { margin: 3px 0; }
+@media (prefers-color-scheme: dark) {
+  :root { color: #e0e7f2; background: #17202e; }
+  select, textarea { background: #202d3f; border-color: #42516a; }
+  .mark { background: #233e64; color: #a9ceff; }
+  header p, .hint, #count, footer { color: #a2aec0; }
+  .toggle, footer { border-color: #354359; }
+  #message { color: #8ed7af; }
+  #message[data-error=true] { color: #ffaaaa; }
+}

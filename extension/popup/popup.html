@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>知乎轻筛</title>
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <header><span class="mark" aria-hidden="true">筛</span><div><h1>知乎轻筛</h1><p>把注意力留给想看的内容</p></div></header>
+  <form id="settings">
+    <fieldset id="fields" disabled>
+      <label class="toggle"><span>启用过滤</span><input id="enabled" type="checkbox" role="switch"></label>
+      <label class="toggle"><span>隐藏广告</span><input id="block-ads" type="checkbox" role="switch" aria-describedby="ad-hint"></label>
+      <p class="hint" id="ad-hint">识别首页广告卡片与广告标记。</p>
+      <label class="toggle"><span>隐藏盐选小说</span><input id="block-fiction" type="checkbox" role="switch" aria-describedby="fiction-hint"></label>
+      <p class="hint" id="fiction-hint">识别明确的盐选小说／故事标记，保留普通盐选知识内容。</p>
+      <label class="toggle"><span>自动补充推荐</span><input id="auto-refill" type="checkbox" role="switch" aria-describedby="refill-hint"></label>
+      <p class="hint" id="refill-hint">内容不足时尝试补充，每轮最多 5 次；无响应或切到后台时暂停。会增加加载流量。</p>
+      <label for="scope">匹配范围</label>
+      <select id="scope"><option value="title">只看标题</option><option value="title-summary">标题＋摘要</option></select>
+      <div class="label-row"><label for="keywords">屏蔽关键词</label><span id="count">0 个</span></div>
+      <textarea id="keywords" rows="8" placeholder="每行一个关键词，例如：&#10;明星八卦&#10;饭圈" spellcheck="false" aria-describedby="hint"></textarea>
+      <p class="hint" id="hint">任一关键词命中即隐藏整张卡片，不留占位。不区分大小写及全半角，按字面包含匹配。</p>
+      <button type="submit" id="save">保存并应用</button>
+    </fieldset>
+    <p id="message" role="status" aria-live="polite">正在读取设置…</p>
+  </form>
+  <footer><p id="page-status">正在检查当前页面…</p><p id="refill-status"></p><button id="refill-retry" type="button" hidden>再补充一轮</button><p>仅过滤知乎首页推荐 · 规则保存在本机</p></footer>
+  <script src="../core/settings.js"></script>
+  <script src="../platform/settings-store.js"></script>
+  <script src="popup.js"></script>
+</body>
+</html>

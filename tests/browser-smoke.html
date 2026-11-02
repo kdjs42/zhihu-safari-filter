@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>知乎轻筛 · 本地演示与 Safari 验证</title>
+  <link rel="stylesheet" href="../extension/popup/popup.css">
+  <link rel="stylesheet" href="../extension/content.css">
+  <style>
+    body { width: auto; max-width: 1020px; margin: 36px auto; padding: 24px; }
+    main { display: grid; grid-template-columns: 308px 1fr; gap: 36px; }
+    .Card { background: light-dark(#fff, #202d3f); border: 1px solid light-dark(#e2e8f0, #42516a); border-radius: 10px; padding: 16px; margin-bottom: 14px; }
+    .ContentItem-title { font-size: 17px; margin: 0 0 10px; }
+    .ContentItem-title a { color: inherit; text-decoration: none; }
+    .RichContent-inner { color: #758297; }
+    #smoke-status { padding: 12px 16px; border-radius: 8px; background: light-dark(#e8f5ee, #234334); margin-bottom: 24px; }
+    #add-card { width: auto; margin: 4px 0 12px; }
+    @media(max-width: 700px) { main { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+  <header><span class="mark" aria-hidden="true">筛</span><div><h1>知乎轻筛 · 本地演示</h1><p>以下为合成帖子，用于验证 Safari 中的过滤与恢复；不会访问知乎或调用模型。</p></div></header>
+  <p id="smoke-status" role="status">正在检查 Safari 中的关键功能…</p>
+  <main>
+    <section>
+      <form id="settings"><fieldset id="fields" disabled>
+        <label class="toggle"><span>启用过滤</span><input id="enabled" type="checkbox" role="switch"></label>
+        <label class="toggle"><span>隐藏广告</span><input id="block-ads" type="checkbox" role="switch"></label>
+        <label class="toggle"><span>隐藏盐选小说</span><input id="block-fiction" type="checkbox" role="switch"></label>
+        <label class="toggle"><span>自动补充推荐</span><input id="auto-refill" type="checkbox" role="switch"></label>
+        <label for="scope">匹配范围</label><select id="scope"><option value="title">只看标题</option><option value="title-summary">标题＋摘要</option></select>
+        <div class="label-row"><label for="keywords">屏蔽关键词</label><span id="count">0 个</span></div>
+        <textarea id="keywords" rows="8" spellcheck="false"></textarea>
+        <p class="hint">每行一个关键词。本演示设置仅在当前页面内存中保存。</p>
+        <button type="submit" id="save">保存并应用</button>
+      </fieldset><p id="message" role="status"></p></form>
+      <footer><p id="page-status"></p><p id="refill-status"></p><button id="refill-retry" type="button" hidden>再补充一轮</button><p>演示使用与扩展相同的过滤引擎、设置界面逻辑和 DOM 渲染器。</p></footer>
+    </section>
+    <section><button id="add-card" type="button">模拟加载下一条推荐</button><div id="feed"></div></section>
+  </main>
+  <script src="../extension/core/settings.js"></script>
+  <script src="../extension/core/keyword-filter.js"></script>
+  <script src="../extension/core/ad-filter.js"></script>
+  <script src="../extension/core/yanxuan-filter.js"></script>
+  <script src="../extension/core/filter-engine.js"></script>
+  <script src="../extension/platform/settings-store.js"></script>
+  <script src="../extension/content/zhihu-adapter.js"></script>
+  <script src="../extension/content/renderer.js"></script>
+  <script src="../extension/content/feed-refiller.js"></script>
+  <script src="../extension/content/controller.js"></script>
+  <script src="browser-smoke.js"></script>
+  <script src="../extension/popup/popup.js"></script>
+</body>
+</html>
