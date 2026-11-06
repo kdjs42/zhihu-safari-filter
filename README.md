@@ -4,7 +4,7 @@
 
 运行时无第三方依赖、无模型调用，规则只保存在本机。过滤器相互独立，预留异步接口，方便以后接入 LLM。
 
-[下载 v0.3.1](https://github.com/kdjs42/zhihu-safari-filter/releases/tag/v0.3.1) · [过滤规则与适配边界](docs/FILTERING.md) · [开发与接入 LLM](docs/DEVELOPMENT.md) · [更新记录](CHANGELOG.md)
+[安装用户脚本](https://github.com/kdjs42/zhihu-safari-filter/releases/latest/download/zhihu-filter.user.js) · [下载 v0.4.0](https://github.com/kdjs42/zhihu-safari-filter/releases/tag/v0.4.0) · [过滤规则与适配边界](docs/FILTERING.md) · [开发与接入 LLM](docs/DEVELOPMENT.md) · [更新记录](CHANGELOG.md)
 
 ## 功能
 
@@ -16,13 +16,30 @@
 
 ## 安装
 
-当前交付 **Safari Web Extension 源码和未签名 ZIP**，不是 App Store 应用。无需安装 Node.js 即可使用。
+### 推荐：通过 Userscripts 使用
+
+使用 App Store 安装的 [Userscripts](https://apps.apple.com/app/userscripts/id1463298887) 承载过滤脚本，不需要为本项目注册付费 Apple 开发者账号，也不受 Safari 临时扩展的 24 小时限制。
+
+1. 安装并打开 Userscripts，在 Safari → 设置 → 扩展中启用它，并允许访问 `www.zhihu.com`。
+2. 下载 [zhihu-filter.user.js](https://github.com/kdjs42/zhihu-safari-filter/releases/latest/download/zhihu-filter.user.js)，放入 Userscripts 的脚本目录；目录可在 Userscripts 中查看或设置。也可用 Userscripts 编辑器的 **New Remote** 添加上面的链接。
+3. 打开一次 Userscripts 工具栏面板，使新脚本被识别，然后刷新知乎首页。
+4. 点击页面左下角的 **“过滤设置”**，填写关键词并保存。面板提供设置文本备份的导入、导出。
+
+**从旧插件迁移：** 先复制旧扩展中的关键词和记录开关状态，再停用旧的“知乎过滤器”扩展，刷新页面后在用户脚本面板中粘贴词表。两种安装方式存储独立，不能自动读取旧词表；不要同时开启两版。
+
+脚本更新可在 Userscripts 中检查，也可下载新版覆盖原脚本。保持脚本名称“知乎过滤器”及文件身份一致，更新前可导出设置备份。其他知乎标签页在切回前台后读取新设置。
+
+脚本无需编译即可安装。安装方式依据 [Userscripts 官方说明](https://github.com/quoid/userscripts#usage)。
+
+### 可选：原生 Safari 扩展开发版
+
+仍提供 Safari Web Extension 源码和未签名 ZIP，供开发测试。下述临时安装方式有 24 小时时限；日常使用推荐上面的用户脚本版。
 
 ### 支持临时扩展的 Safari
 
 本项目在 Safari 27.0 的本地合成页面上完成过过滤行为自检。临时安装入口以 Safari 实际界面为准：
 
-1. 从 [Releases](https://github.com/kdjs42/zhihu-safari-filter/releases) 下载 `zhihu-filter-0.3.1.zip`；也可下载仓库源码，使用其中的 `extension/` 文件夹。
+1. 从 [Releases](https://github.com/kdjs42/zhihu-safari-filter/releases) 下载 `zhihu-filter-0.4.0.zip`；也可下载仓库源码，使用其中的 `extension/` 文件夹。
 2. 打开 Safari → 设置 → 高级，启用网页开发者功能。
 3. 在设置 → 开发者中选择 **Add Temporary Extension… / 添加临时扩展…**，按提示选择 ZIP 或 `extension/` 文件夹。
 4. 在“扩展”设置中启用“知乎过滤器”，允许访问 `www.zhihu.com`。使用 Safari 描述文件时，要在当前描述文件中启用。
@@ -32,7 +49,7 @@
 
 如果 Safari 没有临时扩展入口，可用完整 Xcode 提供的 Safari Web Extension 打包工具封装；仅安装 Command Line Tools 不够。具体步骤见 Apple 的[运行扩展](https://developer.apple.com/documentation/safariservices/running-your-safari-web-extension)和[打包扩展](https://developer.apple.com/documentation/safariservices/packaging-a-web-extension-for-safari)文档。
 
-### 更新
+### 更新原生扩展开发版
 
 加载文件夹的用户：更新源码，在 Safari 中重新加载扩展，再刷新知乎。
 
@@ -40,7 +57,7 @@
 
 ## 隐私与权限
 
-- 只申请 `storage` 和 `https://www.zhihu.com/*`，关键词保存在扩展本地存储。
+- 用户脚本只匹配 `https://www.zhihu.com/*`，仅使用 `GM.getValue` / `GM.setValue` 保存设置，不使用知乎的 localStorage。原生开发版仅申请 `storage` 和知乎域名权限。
 - 扩展不收集或上传浏览内容，不读取 Cookie，不调用外部模型或分析服务。
 - 自动补充会触发知乎自身的加载行为，可能增加流量和页面内存；这不等于网络广告拦截，也不保证阻止知乎的曝光上报。
 - 卡片通过 CSS 隐藏，原始 DOM 保留，以支持恢复及页面框架的正常运行。
@@ -56,9 +73,11 @@ npm test
 npm run package
 ```
 
-产物为 `dist/zhihu-filter-0.3.1.zip`。`dist/` 和 `node_modules/` 不进入源码仓库；发布包在 Releases 下载。GitHub Actions 会检查源码、运行测试并上传打包产物。
+产物为 `dist/zhihu-filter.user.js`、更新元数据 `dist/zhihu-filter.meta.js` 和原生开发版 `dist/zhihu-filter-0.4.0.zip`。`dist/` 和 `node_modules/` 不进入源码仓库；发布包在 Releases 下载。GitHub Actions 会检查源码、运行测试并上传打包产物。
 
-用 Safari 打开 `tests/browser-smoke.html` 可运行本地演示；卡片和存储都是模拟数据，不访问知乎。
+用 Safari 打开 `tests/browser-smoke.html` 可运行原生扩展的本地演示；先运行 `npm run build:userscript`，再打开 `tests/userscript-smoke.html` 可验证用户脚本的原生弹窗和设置操作。演示使用模拟存储，不访问知乎。
+
+v0.4.0 新增用户脚本打包集成测试，覆盖保存与重新加载、标签页切换同步、备份校验、重复注入和返回页面恢复。实际 Userscripts 安装、授权和真实知乎运行仍需实测。
 
 v0.3.0 包含 35 项自动测试。500 条合成卡片中追加 1 条的内容提取次数由旧版的 502 次降至 1 次；无关 UI 变化不再提取帖子。这是调用次数对比，不是 Safari 帧率或耗时测量。完整证据及局限见[验证记录](docs/DEVELOPMENT.md#v030-验证记录2026-11-02)。
 

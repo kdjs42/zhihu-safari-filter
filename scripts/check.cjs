@@ -13,3 +13,9 @@ for (const file of references) {
 if (JSON.stringify(manifest.permissions) !== '["storage"]') throw new Error('Review unexpected permissions');
 if (JSON.stringify(manifest.host_permissions) !== '["https://www.zhihu.com/*"]') throw new Error('Review unexpected hosts');
 console.log(`Checked ${files.length} JavaScript files, manifest resources and minimal permissions.`);
+
+for (const folder of ['userscript', 'scripts']) {
+  for (const file of fs.readdirSync(path.join(root, folder)).filter(file => /\.c?js$/u.test(file))) {
+    execFileSync(process.execPath, ['--check', path.join(root, folder, file)]);
+  }
+}

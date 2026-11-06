@@ -1,0 +1,18 @@
+:host { color-scheme: light dark; font: 13px/1.5 -apple-system, BlinkMacSystemFont, "PingFang SC", sans-serif; }
+[hidden] { display: none !important; }
+#launcher { width: auto; padding: 9px 13px; box-shadow: 0 2px 12px #0002; }
+dialog { position: fixed; margin: auto; padding: 0; border: 1px solid #cdd7e5; border-radius: 14px; width: min(396px, calc(100vw - 32px)); max-height: calc(100vh - 40px); overflow: auto; background: #f7f9fc; color: #253247; }
+dialog::backdrop { background: #0005; }
+.panel-content { width: auto; padding: 20px; }
+#close-panel { float: right; width: auto; margin: 12px 12px 0 0; padding: 4px 10px; background: transparent; color: inherit; }
+header { margin-bottom: 14px; }
+.toggle { padding-bottom: 8px; margin-bottom: 8px; }
+.hint { margin-bottom: 10px; }
+textarea { min-height: 110px; }
+details { margin-top: 14px; }
+summary { cursor: pointer; }
+#backup { margin-top: 8px; min-height: 90px; }
+.backup-actions { display: flex; gap: 8px; margin-top: 8px; }
+@media (prefers-color-scheme: dark) {
+  dialog { background: #17202e; color: #e0e7f2; border-color: #42516a; }
+}

@@ -10,3 +10,5 @@ const output = path.join(dist, `zhihu-filter-${version}.zip`);
 if (fs.existsSync(output)) fs.unlinkSync(output);
 execFileSync('/usr/bin/zip', ['-q', '-r', output, '.', '-x', '*.DS_Store'], { cwd: path.join(root, 'extension') });
 console.log(output);
+
+execFileSync(process.execPath, [path.join(__dirname, "build-userscript.cjs")], { stdio: "inherit" });

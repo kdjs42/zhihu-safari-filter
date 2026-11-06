@@ -64,7 +64,7 @@ npm test
 npm run package
 ```
 
-输出：`dist/zhihu-filter-0.3.1.zip`。ZIP 根目录直接包含 `manifest.json`。
+输出：`dist/zhihu-filter-0.4.0.zip`。ZIP 根目录直接包含 `manifest.json`。
 
 自动测试覆盖关键词规范化、异步过滤链、超时/取消、存储通知、动态加载、摘要/标题变化、规则删除与关闭、页面路由、无占位隐藏、广告标记、小说与非小说区分、独立开关、节点复用、过期结果、HTML 字面值安全展示及设置面板保存。
 
@@ -75,3 +75,13 @@ npm run package
 - 所有扩展 JavaScript 语法、manifest 资源路径与最小权限检查通过。
 - Safari 27.0：本地合成页面自检通过，验证整卡隐藏无占位、广告及盐选小说过滤、保留非小说盐选内容和关闭规则后恢复。
 - 新版尚未在真实知乎页面完成自动补充验证；本地 Safari 自检验证过滤与设置界面，自动补充验证采用合成 DOM 和原生加载模拟，不代表真实推荐流触发成功。
+
+## 用户脚本版本
+
+`npm run build:userscript` 将 manifest 声明的核心与页面处理模块原样合并，排除原生扩展存储和入口，再加入 `userscript/settings-store.js`、`userscript/main.js`。设置界面的静态模板与基础样式复用扩展面板；`userscript/panel.css` 处理页面弹窗布局。生成的 `.user.js` 和 `.meta.js` 发布到 Releases，不入源码仓库。
+
+用户脚本使用私有命名空间、`@inject-into content`、`@noframes`，只请求 `GM.getValue` / `GM.setValue`。面板放在 Shadow DOM 中；设置文字只写入表单值和 textContent。Userscripts 没有在本项目使用的 API 中提供跨标签页存储通知，因此在页面聚焦或切回前台时重新读取设置，不宣称后台标签页即时同步。
+
+用户脚本的命名空间和脚本名称应保持稳定，以免影响脚本管理器对更新与存储的识别。新版 `.meta.js` 的版本取自 extension manifest，下载地址指向 Releases 最新版。两种分发方式均使用同一套过滤规则测试；用户脚本另有完整生成文件的集成测试。
+
+v0.4.0 的 41 项自动测试及打包检查通过。另提供使用模拟 GM 存储的本地 Safari UI 自检页，但本次尚未完成该浏览器自检，也未验证真实 Userscripts 安装和知乎注入。
